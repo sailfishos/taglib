@@ -1,0 +1,33 @@
+Name: taglib
+Summary: Audio Meta-Data Library
+Version: 1.7.2
+Release: 2
+Group: System/Libraries
+License: LGPLv2
+URL: http://developer.kde.org/~wheeler/taglib.html
+Sources:
+    - http://developer.kde.org/~wheeler/files/src/taglib-%{version}.tar.gz
+    - taglib-1.5b1-multilib.patch
+Patches:
+    - taglib-1.5rc1-multilib.patch
+Description: |
+    TagLib is a library for reading and editing the meta-data of several
+    popular audio formats. Currently it supports both ID3v1 and ID3v2 for
+    MP3 files, Ogg Vorbis comments and ID3 tags and Vorbis comments in
+    FLAC files.
+
+PkgConfigBR:
+    - zlib
+PkgBR:
+    - cmake
+SetupOptions: -q -n %{name}-%{version}/%{name}
+Configure: none
+Builder: none
+SubPackages:
+    - Name: devel
+      Summary: Development files for %{name}
+      Group: Development/Libraries
+      Description: "%{summary}."
+      Requires:
+          - pkgconfig
+
