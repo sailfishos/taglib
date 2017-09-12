@@ -1,6 +1,6 @@
 Name:       taglib
 Summary:    Audio Meta-Data Library
-Version:    1.7.2
+Version:    1.11.1
 Release:    2
 Group:      System/Libraries
 License:    LGPLv2.1 or MPLv1.1
