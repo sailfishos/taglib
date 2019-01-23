@@ -18,7 +18,6 @@ popular audio formats. Currently it supports both ID3v1 and ID3v2 for
 MP3 files, Ogg Vorbis comments and ID3 tags and Vorbis comments in
 FLAC files.
 
-
 %package devel
 Summary:    Development files for %{name}
 Group:      Development/Libraries
@@ -26,6 +25,14 @@ Requires:   %{name} = %{version}-%{release}
 Requires:   pkgconfig
 
 %description devel
+%{summary}.
+
+%package doc
+Summary:   Documentation for %{name}
+Group:     Documentation
+Requires:  %{name} = %{version}-%{release}
+
+%description doc
 %{summary}.
 
 %prep
@@ -50,20 +57,27 @@ rm -fr examples/.deps
 rm -fr examples/Makefile*
 rm -f %{buildroot}%{_libdir}/lib*.la
 
+mkdir -p %{buildroot}%{_docdir}/%{name}-%{version}/examples
+install -m0644 AUTHORS %{buildroot}%{_docdir}/%{name}-%{version}
+install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version}/examples \
+        examples/*
+
 %post -p /sbin/ldconfig
 
 %postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING.LGPL
+%license COPYING.LGPL
 %{_libdir}/lib*.so.*
 
 %files devel
 %defattr(-,root,root,-)
-%doc examples
 %{_bindir}/*-config
 %{_includedir}/*
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
 
+%files doc
+%defattr(-,root,root,-)
+%{_docdir}/%{name}-%{version}
