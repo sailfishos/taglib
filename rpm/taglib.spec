@@ -2,8 +2,7 @@ Name:       taglib
 Summary:    Audio Meta-Data Library
 Version:    1.11.1
 Release:    2
-Group:      System/Libraries
-License:    LGPLv2.1 or MPLv1.1
+License:    LGPLv2 or MPLv1.1
 URL:        http://taglib.github.io/
 Source0:    %{name}-%{version}.tar.gz
 Patch0:     taglib-1.5rc1-multilib.patch
@@ -20,7 +19,6 @@ FLAC files.
 
 %package devel
 Summary:    Development files for %{name}
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 Requires:   pkgconfig
 
@@ -29,7 +27,6 @@ Requires:   pkgconfig
 
 %package doc
 Summary:   Documentation for %{name}
-Group:     Documentation
 Requires:  %{name} = %{version}-%{release}
 
 %description doc
