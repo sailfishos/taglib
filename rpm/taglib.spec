@@ -1,11 +1,11 @@
 Name:       taglib
 Summary:    Audio Meta-Data Library
-Version:    1.11.1
-Release:    2
+Version:    1.12
+Release:    1
 License:    LGPLv2 or MPLv1.1
-URL:        http://taglib.github.io/
+URL:        https://github.com/sailfishos/taglib
 Source0:    %{name}-%{version}.tar.gz
-Patch0:     taglib-1.5rc1-multilib.patch
+Patch0:     taglib-1.12-multilib.patch
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(zlib)
@@ -20,7 +20,6 @@ FLAC files.
 %package devel
 Summary:    Development files for %{name}
 Requires:   %{name} = %{version}-%{release}
-Requires:   pkgconfig
 
 %description devel
 %{summary}.
@@ -33,10 +32,7 @@ Requires:  %{name} = %{version}-%{release}
 %{summary}.
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
-
-# taglib-1.5rc1-multilib.patch
-%patch0 -p1
+%autosetup -p1 -n %{name}-%{version}/%{name}
 
 %build
 mkdir -p %{_target_platform}
@@ -44,7 +40,7 @@ pushd %{_target_platform}
 %{cmake} ..
 popd
 
-make %{?_smp_mflags} -C %{_target_platform}
+%make_build -C %{_target_platform}
 
 %install
 rm -rf %{buildroot}
