@@ -1,11 +1,11 @@
 Name:       taglib
 Summary:    Audio Meta-Data Library
-Version:    1.12
+Version:    2.0.2
 Release:    1
 License:    LGPLv2 or MPLv1.1
 URL:        https://github.com/sailfishos/taglib
 Source0:    %{name}-%{version}.tar.gz
-Patch0:     taglib-1.12-multilib.patch
+Patch0:     taglib-2.0.2-multilib.patch
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(zlib)
@@ -35,16 +35,12 @@ Requires:  %{name} = %{version}-%{release}
 %autosetup -p1 -n %{name}-%{version}/%{name}
 
 %build
-mkdir -p %{_target_platform}
-pushd %{_target_platform}
-%{cmake} ..
-popd
+%cmake
 
-%make_build -C %{_target_platform}
+%cmake_build
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
 rm -fr examples/.deps
 rm -fr examples/Makefile*
@@ -60,17 +56,15 @@ install -m0644 -t %{buildroot}%{_docdir}/%{name}-%{version}/examples \
 %postun -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root,-)
 %license COPYING.LGPL
 %{_libdir}/lib*.so.*
 
 %files devel
-%defattr(-,root,root,-)
 %{_bindir}/*-config
 %{_includedir}/*
 %{_libdir}/lib*.so
+%{_libdir}/cmake/*
 %{_libdir}/pkgconfig/*.pc
 
 %files doc
-%defattr(-,root,root,-)
 %{_docdir}/%{name}-%{version}
